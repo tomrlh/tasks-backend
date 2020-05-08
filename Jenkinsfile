@@ -21,16 +21,16 @@ pipeline {
                 }
             }
         }
-        stage('Quality Gate') {
+        /*stage('Quality Gate') {
             steps {
                 timeout(time: 1, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
-        }
+        }*/
         stage('Deploy Backend') {
             steps {
-                deploy adapters: [tomcat9(creedentialsId: 'TomcatLogin', path: '', url: 'http://172.17.0.2:8001')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
+                deploy adapters: [tomcat9(credentialsId: 'tomcat_user', path: '', url: 'http://127.0.0.1:8001')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
             }
         }
     }
